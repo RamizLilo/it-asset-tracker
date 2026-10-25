@@ -4,6 +4,8 @@ import { Server } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { translate } from "@/lib/i18n";
 
+const DEMO_URL = process.env.NEXT_PUBLIC_DEMO_URL || "https://it-asset-tracker-seven.vercel.app";
+
 // Shown in live mode until somebody is signed in.
 export default function Login({ lang, setLang }) {
   const t = (k, v) => translate(lang, k, v);
@@ -38,6 +40,7 @@ export default function Login({ lang, setLang }) {
           <button type="button" className="w-full text-center text-sm text-accent hover:underline" onClick={() => { setMode(mode === "in" ? "up" : "in"); setMsg(null); }}>{mode === "in" ? t("login.toSignup") : t("login.toSignin")}</button>
           {mode === "up" && <p className="text-xs text-mute">{t("login.firstAdmin")}</p>}
         </form>
+        <a href={DEMO_URL} className="mt-4 block text-center text-sm text-mute hover:text-ink hover:underline">{t("login.demo")}</a>
       </div>
     </div>
   );
