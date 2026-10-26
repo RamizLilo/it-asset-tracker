@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { LayoutDashboard, Boxes, Users, MapPin, Truck, Wrench, KeyRound, Package, BarChart3, History, Settings, QrCode, Menu, Search, Bell, Moon, Sun, X, Server, LogOut } from "lucide-react";
+import { LayoutDashboard, Boxes, Users, MapPin, Truck, Wrench, KeyRound, Package, BarChart3, History, Settings, QrCode, FileSignature, ClipboardCheck, Menu, Search, Bell, Moon, Sun, X, Server, LogOut } from "lucide-react";
 import { useApp } from "@/lib/store";
 import { Toaster } from "./ui";
 import CommandPalette from "./CommandPalette";
@@ -10,7 +10,7 @@ import CommandPalette from "./CommandPalette";
 const NAV = [
   ["/", "nav.dashboard", LayoutDashboard], ["/assets", "nav.assets", Boxes], ["/employees", "nav.employees", Users], ["/locations", "nav.locations", MapPin],
   ["/vendors", "nav.vendors", Truck], ["/maintenance", "nav.maintenance", Wrench], ["/licenses", "nav.licenses", KeyRound], ["/consumables", "nav.consumables", Package],
-  ["/labels", "nav.labels", QrCode], ["/reports", "nav.reports", BarChart3], ["/activity", "nav.activity", History], ["/settings", "nav.settings", Settings],
+  ["/labels", "nav.labels", QrCode], ["/handover", "nav.handover", FileSignature], ["/stocktake", "nav.stocktake", ClipboardCheck], ["/reports", "nav.reports", BarChart3], ["/activity", "nav.activity", History], ["/settings", "nav.settings", Settings],
 ];
 
 function Bell2() {

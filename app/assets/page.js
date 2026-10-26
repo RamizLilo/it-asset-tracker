@@ -53,7 +53,7 @@ export default function AssetsPage() {
   const clear = () => { setQ(""); setSt(""); setCat(""); setLoc(""); setEmp(""); setVen(""); setWar(""); };
   const visible = (c) => (cols || DEFAULT_COLS).includes(c);
 
-  const exportCsv = () => download(`assets-${new Date().toISOString().slice(0, 10)}.csv`, toCsv(sorted, assetColumns(t, byId, fmt)));
+  const exportCsv = () => download(`assets-${new Date().toISOString().slice(0, 10)}.csv`, toCsv(sorted, assetColumns(t, byId, fmt, s.settings.customFields || [])));
   const doBulk = () => {
     const patch = bulk.kind === "status" ? { status: bulk.value, ...(["in_stock", "retired", "lost"].includes(bulk.value) ? { assigneeId: null } : {}) } : bulk.kind === "location" ? { locationId: bulk.value } : { category: bulk.value };
     if (bulk.value && act("asset/bulk", { ids: sel, patch }, t("toast.bulk", { n: sel.length }))) { setBulk(null); setSel([]); }

@@ -49,6 +49,7 @@ create table if not exists public.assets (
   notes             text not null default '',
   maintenance_every integer not null default 0 check (maintenance_every >= 0),
   created_at        timestamptz not null default now(),
+  custom            jsonb not null default '{}'::jsonb,
   check (warranty_end is null or purchase_date is null or warranty_end >= purchase_date)
 );
 create unique index if not exists assets_tag_uq on public.assets (lower(tag));
@@ -121,7 +122,8 @@ create table if not exists public.settings (
   currency               text not null default 'EUR',
   depreciation_years     integer not null default 4 check (depreciation_years >= 1),
   warranty_alert_days    integer not null default 60 check (warranty_alert_days >= 0),
-  maintenance_alert_days integer not null default 14 check (maintenance_alert_days >= 0)
+  maintenance_alert_days integer not null default 14 check (maintenance_alert_days >= 0),
+  custom_fields          jsonb not null default '[]'::jsonb
 );
 insert into public.settings (id) values (1) on conflict do nothing;
 

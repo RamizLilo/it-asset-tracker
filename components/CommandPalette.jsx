@@ -16,13 +16,13 @@ export default function CommandPalette() {
 
   const items = useMemo(() => {
     const go = (href) => () => router.push(href);
-    const pages = [["nav.dashboard", "/"], ["nav.assets", "/assets"], ["nav.employees", "/employees"], ["nav.locations", "/locations"], ["nav.vendors", "/vendors"], ["nav.maintenance", "/maintenance"], ["nav.licenses", "/licenses"], ["nav.consumables", "/consumables"], ["nav.labels", "/labels"], ["nav.reports", "/reports"], ["nav.activity", "/activity"], ["nav.settings", "/settings"]]
+    const pages = [["nav.dashboard", "/"], ["nav.assets", "/assets"], ["nav.employees", "/employees"], ["nav.locations", "/locations"], ["nav.vendors", "/vendors"], ["nav.maintenance", "/maintenance"], ["nav.licenses", "/licenses"], ["nav.consumables", "/consumables"], ["nav.labels", "/labels"], ["nav.handover", "/handover"], ["nav.stocktake", "/stocktake"], ["nav.reports", "/reports"], ["nav.activity", "/activity"], ["nav.settings", "/settings"]]
       .map(([k, h]) => ({ group: t("palette.pages"), label: t(k), icon: FileText, run: go(h) }));
     const actions = [
       ...(can("edit") ? [{ group: t("palette.actions"), label: t("assets.new"), icon: Zap, run: go("/assets?new=1") }] : []),
       { group: t("palette.actions"), label: t("theme.toggle"), icon: Zap, run: () => set({ theme: s.settings.theme === "dark" ? "light" : "dark" }) },
       { group: t("palette.actions"), label: s.settings.lang === "en" ? "Deutsch" : "English", icon: Zap, run: () => set({ lang: s.settings.lang === "en" ? "de" : "en" }) },
-      { group: t("palette.actions"), label: t("assets.exportCsv"), icon: Zap, run: () => download("assets.csv", toCsv(s.assets, assetColumns(t, byId, fmt))) },
+      { group: t("palette.actions"), label: t("assets.exportCsv"), icon: Zap, run: () => download("assets.csv", toCsv(s.assets, assetColumns(t, byId, fmt, s.settings.customFields || []))) },
     ];
     const term = q.trim().toLowerCase();
     const match = (...v) => v.some((x) => String(x || "").toLowerCase().includes(term));

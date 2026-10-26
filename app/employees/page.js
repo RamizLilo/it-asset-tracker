@@ -1,7 +1,7 @@
 "use client";
-import Link from "next/link";
 import { Fragment, useEffect, useMemo, useState } from "react";
-import { Plus, Pencil, Trash2, Download, ChevronDown, ChevronUp } from "lucide-react";
+import Link from "next/link";
+import { Plus, Pencil, FileSignature, Trash2, Download, ChevronDown, ChevronUp } from "lucide-react";
 import { useApp } from "@/lib/store";
 import { sortBy } from "@/lib/utils";
 import { toCsv, download } from "@/lib/csv";
@@ -62,6 +62,7 @@ export default function Employees() {
                     <td className="td max-md:hidden">{e.department}</td><td className="td max-lg:hidden">{e.title}</td><td className="td max-lg:hidden">{byId.loc[e.locationId]?.name || "–"}</td>
                     <td className="td tabular-nums">{e.devices.length}</td><td className="td">{e.active ? <Badge tone="ok" dot>{t("emp.active")}</Badge> : <Badge tone="bad" dot>{t("emp.left")}</Badge>}</td>
                     <td className="td no-print"><div className="flex justify-end gap-1">
+                      {e.devices.length > 0 && <Link className="btn btn-sm !px-2" aria-label={`${t("ho.btnAll")}: ${e.name}`} title={t("ho.btnAll")} href={`/handover?emp=${e.id}`}><FileSignature size={14} /></Link>}
                       {can("edit") && <button className="btn btn-sm !px-2" aria-label={`${t("edit")} ${e.name}`} onClick={() => { setErr({}); setForm({ ...e }); }}><Pencil size={14} /></button>}
                       {can("delete") && <button className="btn btn-sm !px-2" aria-label={`${t("delete")} ${e.name}`} onClick={() => setDel(e)}><Trash2 size={14} /></button>}
                     </div></td>

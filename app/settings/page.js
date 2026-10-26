@@ -5,6 +5,7 @@ import { useApp } from "@/lib/store";
 import { download } from "@/lib/csv";
 import { PageHeader, Field, Select, Confirm } from "@/components/ui";
 import UsersAdmin from "@/components/UsersAdmin";
+import CustomFields from "@/components/CustomFields";
 
 const CURRENCIES = ["EUR", "USD", "GBP", "CHF", "ALL"];
 export default function Settings() {
@@ -69,6 +70,7 @@ export default function Settings() {
           </Sec>
         </div>
       </div>
+      <div className="mt-5"><CustomFields /></div>
       {live && <div className="mt-5"><UsersAdmin /></div>}
       <Confirm open={ask === "reset"} onClose={() => setAsk(null)} title={t("set.reset")} text={t("set.resetAsk")} yes={t("confirm")} danger={false} onYes={resetDemo} />
       <Confirm open={ask === "clear"} onClose={() => setAsk(null)} title={t("set.clear")} text={t("set.clearAsk")} yes={t("delete")} onYes={clearAll} />

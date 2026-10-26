@@ -5,7 +5,7 @@ import { useApp } from "@/lib/store";
 import { toCsv, download } from "@/lib/csv";
 import { PageHeader, SearchBox, Select, Badge, Pager, useTable, Empty } from "@/components/ui";
 
-const TONE = { create: "ok", delete: "bad", update: "info", checkout: "accent", checkin: "accent", complete: "ok", import: "warn", bulk: "warn", assign: "info", unassign: "mute", stock: "mute" };
+const TONE = { create: "ok", delete: "bad", update: "info", checkout: "accent", checkin: "accent", complete: "ok", import: "warn", bulk: "warn", assign: "info", unassign: "mute", stock: "mute", stocktake: "info" };
 export default function Activity() {
   const { s, t, fmt } = useApp();
   const [q, setQ] = useState(""), [ent, setEnt] = useState(""), [action, setAction] = useState(""), [user, setUser] = useState("");

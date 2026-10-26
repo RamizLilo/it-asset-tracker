@@ -1,0 +1,4 @@
+[
+  { "id": "AST-001", "name": "MacBook Pro 16", "category": "Laptop", "assignedTo": "John Smith", "status": "Active" },
+  { "id": "AST-002", "name": "Dell UltraSharp 27", "category": "Monitor", "assignedTo": "Mario Rossi", "status": "Active" }
+]

@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
-import { ArrowLeft, Pencil, Copy, Trash2, UserPlus, Undo2, Wrench, Printer, Save } from "lucide-react";
+import { ArrowLeft, FileSignature, Pencil, Copy, Trash2, UserPlus, Undo2, Wrench, Printer, Save } from "lucide-react";
 import { useApp } from "@/lib/store";
 import { bookValue, ageYears, daysUntil, warrantyState } from "@/lib/utils";
 import { Badge, Confirm, Empty, StatusBadge } from "@/components/ui";
@@ -44,6 +44,7 @@ export default function AssetDetail() {
         </div>
         <div className="no-print flex flex-wrap gap-2">
           {can("edit") && (a.assigneeId ? <button className="btn" onClick={() => setInn(true)}><Undo2 size={15} aria-hidden /> {t("assets.checkin")}</button> : ["in_stock", "in_use"].includes(a.status) && <button className="btn" onClick={() => setOut(true)}><UserPlus size={15} aria-hidden /> {t("assets.checkout")}</button>)}
+          {a.assigneeId && <Link className="btn" href={`/handover?asset=${a.id}&emp=${a.assigneeId}&type=handover`}><FileSignature size={15} aria-hidden /> {t("ho.btn")}</Link>}
           {can("edit") && <button className="btn" onClick={() => setMaint({ open: true, m: null })}><Wrench size={15} aria-hidden /> {t("maint.new")}</button>}
           {can("edit") && <button className="btn" onClick={() => setEdit(true)}><Pencil size={15} aria-hidden /> {t("edit")}</button>}
           {can("edit") && <button className="btn" onClick={() => { act("asset/duplicate", { id: a.id }, t("toast.duplicated")); router.push("/assets"); }}><Copy size={15} aria-hidden /> {t("duplicate")}</button>}
@@ -67,6 +68,11 @@ export default function AssetDetail() {
                 <Row k={t("f.maintEvery")}>{a.maintenanceEvery ? t("days", { n: a.maintenanceEvery }) : "–"}</Row>
               </div>
             </dl>
+            {(s.settings.customFields || []).length > 0 && (
+              <dl className="mt-1 grid gap-x-8 sm:grid-cols-2">
+                {s.settings.customFields.map((cf) => <Row key={cf.id} k={cf.label}>{cf.type === "date" && a.custom?.[cf.id] ? fmt.date(a.custom[cf.id]) : a.custom?.[cf.id] || "–"}</Row>)}
+              </dl>
+            )}
           </section>
 
           <section className="card p-4 sm:p-5">
